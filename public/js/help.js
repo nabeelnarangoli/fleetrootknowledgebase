@@ -165,11 +165,39 @@
   function wireSearch() {
     const q = $('#q'), box = $('.results');
     const hay = (t) => [t.t.en, t.t.ar, t.sum.en, t.sum.ar, ...(t.steps || []).flatMap((s) => [s.en, s.ar]), ...(t.faq || []).flatMap((f) => [f.q.en, f.a.en])].join(' ').toLowerCase().replace(/\*\*/g, '');
+    // Forgiving search: ignores filler words and punctuation, knows common synonyms,
+    // ranks guides by how many search words they match (title matches count most).
+    const STOP = new Set('a an the to of in on for and or is are do does i my me we our you your it this that can how what when why which with from at by be will want need get please'.split(' '));
+    const SYN = { create: ['add', 'new'], make: ['add', 'new'], add: ['new', 'create'], new: ['add'], register: ['add', 'new'],
+      delete: ['remove', 'right-click'], remove: ['delete'], edit: ['update', 'change', 'right-click'], change: ['edit', 'update'], update: ['edit', 'change'], modify: ['edit'],
+      car: ['vehicle'], truck: ['vehicle'], bus: ['vehicle'], asset: ['vehicle'], vehicle: ['asset'], petrol: ['fuel', 'refuel'], diesel: ['fuel', 'refuel'], fuel: ['refuel'], refuel: ['fuel'],
+      location: ['tracking', 'map', 'live'], where: ['live', 'tracking'], track: ['tracking', 'live'], live: ['tracking'], map: ['tracking'], history: ['replay', 'route'], trip: ['route', 'report'], playback: ['replay'],
+      login: ['sign'], signin: ['sign'], logout: ['log'], password: ['password', 'profile'], speed: ['over speed', 'alert'], overspeed: ['over speed', 'alert'], notification: ['alert'],
+      maintenance: ['service'], repair: ['work order'], insurance: ['renewal'], registration: ['renewal'], expense: ['misc'], parking: ['misc'], salik: ['misc'], toll: ['misc'],
+      geofence: ['poi', 'zone', 'fence'], place: ['poi'], team: ['group'], employee: ['driver', 'user'], staff: ['user'], score: ['scorecard'], sms: ['add-on'], email: ['add-on'] };
+    const VERB = new Set('add new create make register delete remove edit change update modify set manage view see record open find show use'.split(' '));
+    const stem = (w) => w.replace(/(ies)$/, 'y').replace(/(ing|ed|es|s)$/, '') || w;
+    const has = (text, a) => /[^\x00-\x7f]/.test(a) ? text.includes(a) : new RegExp('(^|[^a-z0-9])' + a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).test(text);
+    const norm = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, ' ');
     q.oninput = () => {
-      const v = q.value.trim().toLowerCase();
+      const v = norm(q.value).trim();
       if (!v) { box.hidden = true; return; }
-      const words = v.split(/\s+/);
-      const hits = KB.topics.filter((t) => CONFIG.modules[t.module] && words.every((w) => hay(t).includes(w))).slice(0, 8);
+      let words = v.split(/\s+/).filter((w) => w && !STOP.has(w));
+      if (!words.length) words = v.split(/\s+/).filter(Boolean);
+      const scored = KB.topics.filter((t) => CONFIG.modules[t.module]).map((t) => {
+        const all = norm(hay(t)), title = norm(t.t.en + ' ' + t.t.ar);
+        let score = 0, verb = 0, matched = 0, nounMiss = 0;
+        for (const w of words) {
+          const alts = [w, stem(w), ...(SYN[w] || SYN[stem(w)] || [])].filter((x) => x.length > 1);
+          const v = alts.some((a) => has(title, a)) ? 3 : alts.some((a) => has(all, a)) ? 1 : 0;
+          if (v) matched++;
+          if (VERB.has(w)) verb = Math.max(verb, v * 0.4); else { score += v; if (!v) nounMiss++; }
+        }
+        return { t, score: score + verb + (nounMiss ? 0 : 2), matched, nounMiss };
+      }).filter((h) => h.matched);
+      // prefer guides that cover every topic word; fall back to partial matches
+      const full = scored.filter((h) => !h.nounMiss);
+      const hits = (full.length ? full : scored).sort((a, b) => b.score - a.score).slice(0, 8).map((h) => h.t);
       box.innerHTML = hits.length ? hits.map((t) => `<a href="#${t.id}"><b>${esc(t.t.en)}</b><small>${esc(KB.groups[t.group].en)} · ${esc(t.sum.en)}</small></a>`).join('') : '<p class="muted" style="padding:12px">No guides match. Try another word.</p>';
       box.hidden = false;
       $$('a', box).forEach((a) => (a.onclick = () => { box.hidden = true; q.value = ''; }));
