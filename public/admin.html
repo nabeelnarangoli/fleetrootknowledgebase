@@ -11,27 +11,27 @@
 <link rel="stylesheet" href="/css/site.css">
 <style>
   .auth { min-height: 100vh; display: grid; place-items: center; }
-  .authcard { width: 100%; max-width: 400px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 30px; box-shadow: var(--shadow); display: grid; gap: 16px; }
+  .authcard { width: 100%; max-width: 400px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 30px; box-shadow: var(--shadow); display: grid; gap: 16px; }
   .ck { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); } .ck input { margin-top: 3px; accent-color: var(--violet); width: 16px; height: 16px; }
 
-  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(251,251,249,.9); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid var(--line); }
   .bar .wrap { display: flex; align-items: center; gap: 14px; min-height: 62px; }
   .bar .tag { font: 600 12px/1 var(--f-body); color: #fff; background: var(--ink); padding: 6px 9px; border-radius: 999px; }
   .tabsnav { display: flex; gap: 4px; margin-inline-start: 18px; }
-  .tabsnav button { border: 0; background: none; padding: 9px 12px; border-radius: 9px; font: 600 15px var(--f-body); color: var(--muted); cursor: pointer; }
+  .tabsnav button { border: 0; background: none; padding: 9px 14px; border-radius: var(--pill); font: 600 15px var(--f-body); color: var(--muted); cursor: pointer; }
   .tabsnav button.on { background: var(--violet-tint); color: var(--violet-ink); }
   .bar .right { margin-inline-start: auto; display: flex; gap: 8px; }
   .adm { padding-block: 28px 80px; display: grid; gap: 20px; }
   .head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; } .head h1 { font-size: 30px; }
   .statgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-  .statgrid div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 4px; }
+  .statgrid div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 4px; }
   .statgrid b { font: 700 28px/1 var(--f-display); font-variant-numeric: tabular-nums; } .statgrid span { color: var(--muted); font-size: 14px; }
   .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .filters .field { flex: 1; min-width: 220px; max-width: 380px; }
   .chips { display: flex; gap: 6px; flex-wrap: wrap; }
   .chips button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 12px; font: 500 14px var(--f-body); color: var(--ink-2); cursor: pointer; }
   .chips button.on { border-color: var(--violet); background: var(--violet-tint); color: var(--violet-ink); }
-  .tblwrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+  .tblwrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
   table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 860px; }
   th { text-align: start; font: 600 12px/1.2 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--sunk); }
   td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; } tr:last-child td { border-bottom: 0; }
@@ -40,10 +40,10 @@
   .pill { display: inline-block; font: 600 12px/1 var(--f-body); padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
   .pill.ok { background: var(--ok-tint); color: var(--ok); } .pill.warn { background: var(--warn-tint); color: var(--warn); } .pill.off { background: var(--bad-tint); color: var(--bad); }
   .acts { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-  .mini { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 6px 10px; font: 500 13px var(--f-body); cursor: pointer; white-space: nowrap; }
+  .mini { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: var(--pill); padding: 6px 12px; font: 500 13px var(--f-body); cursor: pointer; white-space: nowrap; }
   .mini:hover { background: var(--sunk); } .mini.danger { color: var(--bad); }
   .empty { text-align: center; padding: 40px 20px; color: var(--muted); }
-  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 14px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 14px; }
   .panel h2 { font-size: 20px; }
   .sw { display: flex; gap: 14px; align-items: flex-start; justify-content: space-between; padding-block: 10px; border-top: 1px solid var(--line); }
   .sw:first-of-type { border-top: 0; }
@@ -55,7 +55,7 @@
   code { font-size: 13px; background: var(--sunk); padding: 2px 6px; border-radius: 6px; }
   .bar2 { height: 8px; border-radius: 99px; background: var(--sunk); overflow: hidden; min-width: 90px; } .bar2 i { display: block; height: 100%; background: var(--ok); }
   .modalbg { position: fixed; inset: 0; background: rgba(14,14,16,.45); display: grid; place-items: center; z-index: 60; padding: 16px; }
-  .modal { width: 100%; max-width: 460px; max-height: 90vh; overflow: auto; background: var(--surface); border-radius: 16px; padding: 24px; display: grid; gap: 14px; box-shadow: var(--shadow); }
+  .modal { width: 100%; max-width: 460px; max-height: 90vh; overflow: auto; background: var(--surface); border-radius: var(--r); padding: 24px; display: grid; gap: 14px; box-shadow: var(--shadow); }
   .modal h2 { font-size: 22px; } .mrow { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
   @media (max-width: 760px) { .statgrid { grid-template-columns: 1fr 1fr; } .tabsnav { margin-inline-start: 0; } .bar .wrap { flex-wrap: wrap; padding-block: 8px; } .bar .right { margin-inline-start: auto; } }
 </style>

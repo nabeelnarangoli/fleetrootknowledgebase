@@ -11,76 +11,90 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="/css/site.css">
 <style>
-  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .top .wrap { display: flex; align-items: center; gap: 22px; min-height: 66px; }
-  .top nav { display: flex; gap: 22px; margin-inline-start: 12px; }
-  .top nav a { color: var(--ink-2); text-decoration: none; font-weight: 500; font-size: 15px; }
+  .wrap { max-width: 1120px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+  /* header — as on fleetroot.com */
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(251,251,249,.88); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 28px; min-height: 64px; }
+  .top .logo-img { height: 27px; }
+  .top nav { display: flex; gap: 28px; margin-inline: auto; }
+  .top nav a { color: var(--ink); text-decoration: none; font-size: 15px; }
   .top nav a:hover { color: var(--violet-ink); }
-  .top .acts { margin-inline-start: auto; display: flex; gap: 10px; }
-  .kb-tag { font: 600 12px/1 var(--f-body); color: var(--violet-ink); background: var(--violet-tint); padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
+  .top .acts { display: flex; align-items: center; gap: 18px; }
+  .login { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-size: 15px; white-space: nowrap; }
+  .login svg { width: 17px; height: 17px; } .login:hover { color: var(--violet-ink); }
 
-  .hero { padding-block: 56px 72px; }
-  .hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: center; }
-  .hero h1 { font-size: clamp(36px, 5vw, 58px); margin-top: 16px; }
-  .hero .h1ar { font-size: clamp(20px, 2.3vw, 26px); color: var(--muted); margin-top: 12px; font-weight: 600; }
-  .hero .lead { font-size: 18px; color: var(--ink-2); margin-top: 20px; max-width: 34em; }
-  .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-  .hero .fine { margin-top: 16px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
-  .hero .fine span::before { content: "✓"; color: var(--ok); font-weight: 700; margin-inline-end: 6px; }
-  .demo-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: flex; justify-content: space-between; gap: 12px; }
+  /* hero */
+  .hero { padding-block: 64px 88px; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(38px, 4.4vw, 56px); letter-spacing: -.03em; line-height: 1.02; margin-top: 22px; }
+  .hero .h1ar { font-size: clamp(20px, 2.2vw, 24px); color: var(--muted); margin-top: 14px; font-weight: 600; }
+  .hero .lead { font-size: 18px; line-height: 28px; color: var(--ink-2); margin-top: 22px; max-width: 33em; }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .checks { margin-top: 20px; font-size: 14px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .checks span { display: inline-flex; align-items: center; gap: 7px; }
+  .checks span::before { content: ""; width: 14px; height: 14px; flex: none; background: var(--violet); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat; }
+  .barstats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 34px; }
+  .barstats div { border-inline-start: 2px solid var(--ink); padding-inline-start: 12px; display: grid; gap: 2px; }
+  .barstats b { font: 700 28px/1 var(--f-display); letter-spacing: -.02em; } .barstats span { font-size: 13px; color: var(--muted); }
+  .stage { position: relative; border: 1px solid var(--line); border-radius: 24px; padding: 22px; background-color: #fff;
+    background-image: linear-gradient(var(--sunk) 1px, transparent 1px), linear-gradient(90deg, var(--sunk) 1px, transparent 1px); background-size: 32px 32px; box-shadow: var(--shadow); }
+  .demo-label { font-size: 13px; color: var(--muted); margin-bottom: 12px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  .demo-label .chip { background: #fff; }
 
-  section.band { padding-block: 72px; border-top: 1px solid var(--line); }
-  .sechead { display: grid; gap: 10px; max-width: 46em; margin-bottom: 36px; }
-  .sechead h2 { font-size: clamp(28px, 3.4vw, 40px); }
-  .sechead p { color: var(--ink-2); font-size: 17px; }
+  /* sections */
+  section.band { padding-block: 96px; }
+  section.alt { background: var(--sunk); border-block: 1px solid var(--line); }
+  .sechead { display: grid; gap: 14px; max-width: 46em; margin-bottom: 44px; }
+  .sechead h2 { font-size: clamp(32px, 3.6vw, 48px); letter-spacing: -.025em; line-height: 1.08; }
+  .sechead p { color: var(--ink-2); font-size: 18px; line-height: 28px; }
   .sechead .ar { color: var(--muted); font-size: 16px; text-align: start; }
 
   .about { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .pillar { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px; display: grid; gap: 12px; align-content: start; }
-  .pillar h3 { font-size: 22px; }
-  .pillar ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--ink-2); }
-  .pillar li { display: flex; gap: 10px; } .pillar li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 2px; background: var(--violet); margin-top: 9px; }
-  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 28px; border-top: 1px solid var(--line); }
-  .stats div { padding: 20px 20px 0 0; display: grid; gap: 4px; }
-  .stats b { font: 700 34px/1 var(--f-display); letter-spacing: -.02em; }
-  .stats span { color: var(--muted); font-size: 14px; }
+  .pillar { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 28px; display: grid; gap: 14px; align-content: start; }
+  .pillar h3 { font-size: 22px; letter-spacing: -.015em; }
+  .pillar ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; color: var(--ink-2); }
+  .pillar li { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .pillar li::before { content: "→"; color: var(--violet); font-weight: 600; flex: none; }
 
   .mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-  .mod { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; display: grid; gap: 10px; align-content: start; }
-  .mod .chip { justify-self: start; font: 600 12px/1 var(--f-body); padding: 6px 9px; border-radius: 999px; background: var(--sunk); color: var(--muted); }
-  .mod.live .chip { background: var(--ok-tint); color: var(--ok); }
-  .mod.live { border-color: color-mix(in srgb, var(--violet) 40%, var(--line)); }
-  .mod h3 { font-size: 20px; } .mod .ar { color: var(--muted); font-size: 15px; text-align: start; margin-top: -4px; }
+  .mod { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; display: grid; gap: 10px; align-content: start; transition: box-shadow .2s, transform .2s; }
+  .mod.live:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .mod h3 { font-size: 19px; letter-spacing: -.01em; margin-top: 6px; } .mod .ar { color: var(--muted); font-size: 15px; text-align: start; margin-top: -4px; }
   .mod p { color: var(--ink-2); font-size: 15px; }
-  .mod .count { font-weight: 600; color: var(--violet-ink); font-size: 14px; }
+  .mod .more { margin-top: 6px; font-size: 15px; }
+  .mod:not(.live) { opacity: .85; }
 
-  .how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
-  .how li { list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; display: grid; gap: 8px; counter-increment: s; }
-  .how li::before { content: counter(s); font: 700 15px/1 var(--f-display); color: var(--on-violet); background: var(--violet); width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; }
-  .how h3 { font-size: 19px; } .how p { color: var(--ink-2); font-size: 15px; } .how .ar { color: var(--muted); font-size: 15px; text-align: start; }
-  .how { padding: 0; margin: 0; }
+  .how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; padding: 0; margin: 0; }
+  .how li { list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px; display: grid; gap: 10px; align-content: start; counter-increment: s; }
+  .how li::before { content: "0" counter(s); font: 600 12px/1 var(--f-body); letter-spacing: .14em; color: var(--muted); }
+  .how h3 { font-size: 20px; letter-spacing: -.01em; } .how p { color: var(--ink-2); font-size: 15px; } .how .ar { color: var(--muted); font-size: 15px; text-align: start; }
 
-  .ctaband { background: var(--frame); color: #fff; border-radius: 20px; padding: 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; }
-  .ctaband h2 { font-size: clamp(26px, 3vw, 36px); color: #fff; } .ctaband .ar { color: #B9B9C6; font-size: 17px; margin-top: 8px; text-align: start; }
-  .ctaband .btn.ghost { background: transparent; color: #fff; border-color: #3A3A46; }
+  .ctaband { background: var(--ink); color: #fff; border-radius: 28px; padding: 80px 32px; text-align: center; display: grid; justify-items: center; gap: 18px; }
+  .ctaband h2 { font-size: clamp(32px, 4vw, 52px); color: #fff; letter-spacing: -.025em; max-width: 16em; }
+  .ctaband p { color: #B4B4BE; font-size: 18px; } .ctaband .ar { color: #9A9AA6; font-size: 17px; }
+  .ctaband .row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+  .ctaband .btn.ghost { background: transparent; color: #fff; border-color: #3A3A46; } .ctaband .btn.ghost:hover { border-color: #fff; }
 
-  footer { padding-block: 40px 56px; color: var(--muted); font-size: 14px; }
-  footer .wrap { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 28px; }
-  footer h4 { margin: 0 0 10px; color: var(--ink); font: 600 14px var(--f-body); }
+  /* footer — as on fleetroot.com */
+  footer { background: var(--sunk); border-top: 1px solid var(--line); padding-block: 64px 28px; color: var(--ink-2); font-size: 14px; }
+  .fcols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+  footer h4 { margin: 0 0 16px; color: var(--muted); font: 500 12px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; }
   footer a { color: var(--ink-2); text-decoration: none; } footer a:hover { color: var(--violet-ink); }
-  footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  footer .mail { color: var(--violet-ink); font-weight: 500; }
+  .fmeta { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; color: var(--muted); font-size: 13px; }
+  .fmeta .co { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 600; }
   .sel { user-select: all; }
 
-  @media (max-width: 980px) { .hero .wrap { grid-template-columns: 1fr; gap: 32px; } .mods { grid-template-columns: 1fr 1fr; } .top nav { display: none; } }
-  @media (max-width: 680px) { .about, .how, .mods { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } footer .wrap { grid-template-columns: 1fr; } .ctaband { padding: 28px; } .top .acts .ghost { display: none; } .kb-tag { display: none; } section.band { padding-block: 52px; } }
+  @media (max-width: 980px) { .hero .wrap { grid-template-columns: 1fr; gap: 40px; } .mods { grid-template-columns: 1fr 1fr; } .top nav { display: none; } .top .acts { margin-inline-start: auto; } .fcols { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 680px) { .about, .how, .mods { grid-template-columns: 1fr; } section.band { padding-block: 64px; } .ctaband { padding: 52px 22px; border-radius: 22px; } .stage { padding: 12px; border-radius: 18px; } .login span { display: none; } .fcols { grid-template-columns: 1fr; } .hero { padding-block: 40px 64px; } }
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <a href="/" aria-label="Fleetroot Knowledge Base home"><img class="logo-img on-light" src="/img/fleetroot-logo.png" alt="Fleetroot"><img class="logo-img on-dark" src="/img/fleetroot-logo-light.png" alt="Fleetroot"></a>
-  <span class="kb-tag">Knowledge Base</span>
-  <nav><a href="#guides">Guides</a><a href="#about">About Fleetroot</a><a href="#modules">Modules</a><a href="#how">How it works</a></nav>
-  <div class="acts"><a class="btn ghost sm" href="/help">Sign in</a><a class="btn sm" href="/help?signup=1">Create account</a></div>
+  <a href="/" aria-label="Fleetroot Knowledge Base home"><img class="logo-img on-light" src="/img/fleetroot-logo.png" alt="Fleetroot"></a>
+  <nav><a href="#guides">Guides</a><a href="#about">About Fleetroot</a><a href="#modules">Modules</a><a href="#how">How it works</a><a href="https://fleetroot.com/" target="_blank" rel="noopener">fleetroot.com</a></nav>
+  <div class="acts"><a class="login" href="/help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><span>Log in</span></a><a class="btn sm" href="/help?signup=1">Create account</a></div>
 </div></header>
 
 <main>
@@ -90,19 +104,20 @@
     <h1>Learn Fleetroot by watching it work.</h1>
     <p class="h1ar ar">تعلّم Fleetroot بمشاهدته وهو يعمل.</p>
     <p class="lead">Short animated guides show you exactly where to click on the real Fleetroot screens. Every step is written in English and Arabic, so your whole team can follow along.</p>
-    <div class="cta"><a class="btn" href="/help?signup=1">Create a free account</a><a class="btn ghost" href="/help">Sign in</a></div>
-    <p class="fine"><span>Free for Fleetroot customers</span><span>English and Arabic</span><span>Works on phone and desktop</span></p>
+    <div class="cta"><a class="btn lg" href="/help?signup=1">Create a free account</a><a class="btn ghost lg" href="/help">Sign in</a></div>
+    <p class="checks"><span>Free for Fleetroot customers</span><span>English and Arabic</span><span>Phone and desktop</span></p>
+    <div class="barstats"><div><b id="nG">27</b><span>Fleet guides</span></div><div><b id="nA">25</b><span>animated on real screens</span></div><div><b>2</b><span>languages</span></div></div>
   </div>
-  <div>
-    <p class="demo-label"><span>Try a guide: <b>Run a report</b></span><span class="ar">جرّب دليلًا: تشغيل تقرير</span></p>
+  <div class="stage">
+    <p class="demo-label"><span class="chip">Try a guide · <b>Run a report</b></span><span class="ar">جرّب دليلًا: تشغيل تقرير</span></p>
     <div id="heroDemo"></div>
   </div>
 </div></section>
 
-<section class="band" id="about"><div class="wrap">
+<section class="band alt" id="about"><div class="wrap">
   <div class="sechead">
     <span class="eyebrow">About Fleetroot</span>
-    <h2>Every vehicle. Every delivery. One platform.</h2>
+    <h2>One connected operation, from fleet to doorstep.</h2>
     <p>Fleetroot connects your vehicles, drivers, tracking devices and transport operations. You see the whole fleet live, plan better routes, dispatch faster and keep digital proof of every delivery, all in one place.</p>
     <p class="ar">يربط Fleetroot مركباتك وسائقيك وأجهزة التتبع وعمليات النقل في منصة واحدة: رؤية مباشرة للأسطول، ومسارات أفضل، وإسناد أسرع، وإثبات رقمي لكل عملية تسليم.</p>
   </div>
@@ -112,7 +127,7 @@
     <div class="pillar"><span class="eyebrow">Logistics Orchestration</span><h3>Plan, dispatch and prove every delivery</h3>
       <ul><li>Route planning with time windows and live traffic</li><li>Automatic dispatch to drivers and a driver mobile app</li><li>Proof of delivery by signature, photo or OTP</li><li>Orders from your ERP, online store or spreadsheet</li></ul></div>
   </div>
-  <div class="stats"><div><b>20M+</b><span>orders processed</span></div><div><b>300+</b><span>businesses onboarded</span></div><div><b>GCC</b><span>based in Dubai, UAE</span></div></div>
+  <div class="barstats" style="margin-top:44px"><div><b>20M+</b><span>orders processed</span></div><div><b>300+</b><span>businesses onboarded</span></div><div><b>GCC</b><span>based in Dubai, UAE</span></div></div>
 </div></section>
 
 <section class="band" id="modules"><div class="wrap">
@@ -121,7 +136,7 @@
   <div class="mods" id="mods"></div>
 </div></section>
 
-<section class="band" id="how"><div class="wrap">
+<section class="band alt" id="how"><div class="wrap">
   <div class="sechead"><span class="eyebrow">How it works</span><h2>Three steps to your first guide</h2></div>
   <ol class="how">
     <li><h3>Create your account</h3><p>Sign up with your name and work email and choose a password.</p><p class="ar">أنشئ حسابك بالاسم والبريد الإلكتروني وكلمة مرور.</p></li>
@@ -131,17 +146,25 @@
 </div></section>
 
 <section class="band"><div class="wrap">
-  <div class="ctaband"><div><h2>Ready to learn Fleetroot?</h2><p class="ar">هل أنت مستعد لتعلّم Fleetroot؟</p></div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="/help?signup=1">Create a free account</a><a class="btn ghost" href="/help">Sign in</a></div></div>
+  <div class="ctaband"><h2>Every screen, explained step by step.</h2>
+    <p>Create a free account in a minute and start with any guide.</p><p class="ar">أنشئ حسابًا مجانيًا خلال دقيقة وابدأ بأي دليل.</p>
+    <div class="row"><a class="btn lg" href="/help?signup=1">Create a free account</a><a class="btn ghost lg" href="/help">Sign in</a></div></div>
 </div></section>
 </main>
 
 <footer><div class="wrap">
-  <div><img class="logo-img on-light" src="/img/fleetroot-logo.png" alt="Fleetroot"><img class="logo-img on-dark" src="/img/fleetroot-logo-light.png" alt="Fleetroot">
-    <p style="margin-top:12px;max-width:34em">Fleetroot FZCO · Office #9WC 523, Dubai Airport Free Zone (DAFZA), Dubai, UAE</p></div>
-  <div><h4>Support</h4><ul><li><span class="sel">support@fleetroot.com</span></li><li><span class="sel">+971 52 52 34 328</span></li><li><span class="sel">+971 55 200 5851</span></li></ul></div>
-  <div><h4>Fleetroot</h4><ul><li><a href="https://fleetroot.com/" target="_blank" rel="noopener">fleetroot.com</a></li><li><a href="https://track.fleetroot.com/" target="_blank" rel="noopener">Tracking portal</a></li><li><a href="/help">Knowledge Base sign in</a></li></ul></div>
+  <div class="fcols">
+    <div><img class="logo-img on-light" src="/img/fleetroot-logo.png" alt="Fleetroot">
+      <p style="margin-top:16px;max-width:22em">Step-by-step guides for Fleetroot fleet management and last-mile delivery.</p>
+      <p style="margin-top:14px"><a class="mail sel" href="mailto:support@fleetroot.com">support@fleetroot.com</a></p></div>
+    <div><h4>Knowledge Base</h4><ul><li><a href="/help">Log in</a></li><li><a href="/help?signup=1">Create account</a></li><li><a href="#modules">Modules</a></li><li><a href="#how">How it works</a></li></ul></div>
+    <div><h4>Fleetroot</h4><ul><li><a href="https://fleetroot.com/" target="_blank" rel="noopener">fleetroot.com</a></li><li><a href="https://track.fleetroot.com/" target="_blank" rel="noopener">Tracking portal</a></li></ul></div>
+    <div><h4>Support</h4><ul><li><a class="sel" href="tel:+971525234328">+971 52 52 34 328</a></li><li><a class="sel" href="tel:+971552005851">+971 55 200 5851</a></li><li><a href="https://wa.me/971525234328" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+  </div>
+  <div class="fmeta"><span class="co"><span class="chip violet">UAE</span>Fleetroot FZCO · Office #9WC 523, DAFZA, Dubai</span><span>© <span id="yr">2026</span> Fleetroot. All rights reserved.</span></div>
 </div></footer>
+
+<a class="wa-float" href="https://wa.me/971525234328" target="_blank" rel="noopener" aria-label="WhatsApp Fleetroot support"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a>
 
 <script src="/js/kb-content.js"></script>
 <script src="/js/player.js"></script>
@@ -153,10 +176,13 @@
     document.getElementById('mods').innerHTML = KB.modules.map((m) => {
       const live = !!on[m.id];
       const n = KB.topics.filter((x) => x.module === m.id).length;
-      return `<div class="mod ${live ? 'live' : ''}"><span class="chip">${live ? 'Available' : 'Coming soon'}</span><h3>${m.name.en}</h3><p class="ar">${m.name.ar}</p><p>${m.blurb.en}</p>${live && n ? `<span class="count">${n} guides</span>` : ''}</div>`;
+      return `<div class="mod ${live ? 'live' : ''}"><span class="chip ${live ? 'ok' : ''}" style="justify-self:start">${live ? 'Available' : 'Coming soon'}</span><h3>${m.name.en}</h3><p class="ar">${m.name.ar}</p><p>${m.blurb.en}</p>${live && n ? `<a class="more" href="/help">${n} guides</a>` : ''}</div>`;
     }).join('');
   };
   render({ fleet: true });
+  const ft = KB.topics.filter((x) => x.module === 'fleet');
+  document.getElementById('nG').textContent = ft.length; document.getElementById('nA').textContent = ft.filter((x) => x.demo).length;
+  document.getElementById('yr').textContent = new Date().getFullYear();
   fetch('/api/config').then((r) => r.json()).then((c) => c.modules && render(c.modules)).catch(() => {});
 })();
 </script>
