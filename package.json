@@ -1,0 +1,16 @@
+{
+  "name": "fleetroot-knowledge-base",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fleetroot customer knowledge base: landing page, sign-up with email confirmation, animated how-to guides (English + Arabic) and an admin panel. Hosted on Netlify.",
+  "type": "module",
+  "scripts": {
+    "dev": "node dev-server.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

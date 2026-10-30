@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fleetroot Knowledge Base</title>
+<meta name="description" content="Animated, step-by-step guides for Fleetroot, in English and Arabic. Create a free account with your email.">
+<meta name="theme-color" content="#FBFBF9">
+<link rel="icon" href="/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="/css/site.css">
+<style>
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 22px; min-height: 66px; }
+  .top nav { display: flex; gap: 22px; margin-inline-start: 12px; }
+  .top nav a { color: var(--ink-2); text-decoration: none; font-weight: 500; font-size: 15px; }
+  .top nav a:hover { color: var(--violet-ink); }
+  .top .acts { margin-inline-start: auto; display: flex; gap: 10px; }
+  .kb-tag { font: 600 12px/1 var(--f-body); color: var(--violet-ink); background: var(--violet-tint); padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
+
+  .hero { padding-block: 56px 72px; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(36px, 5vw, 58px); margin-top: 16px; }
+  .hero .h1ar { font-size: clamp(20px, 2.3vw, 26px); color: var(--muted); margin-top: 12px; font-weight: 600; }
+  .hero .lead { font-size: 18px; color: var(--ink-2); margin-top: 20px; max-width: 34em; }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero .fine { margin-top: 16px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .hero .fine span::before { content: "✓"; color: var(--ok); font-weight: 700; margin-inline-end: 6px; }
+  .demo-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: flex; justify-content: space-between; gap: 12px; }
+
+  section.band { padding-block: 72px; border-top: 1px solid var(--line); }
+  .sechead { display: grid; gap: 10px; max-width: 46em; margin-bottom: 36px; }
+  .sechead h2 { font-size: clamp(28px, 3.4vw, 40px); }
+  .sechead p { color: var(--ink-2); font-size: 17px; }
+  .sechead .ar { color: var(--muted); font-size: 16px; text-align: start; }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .pillar { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px; display: grid; gap: 12px; align-content: start; }
+  .pillar h3 { font-size: 22px; }
+  .pillar ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--ink-2); }
+  .pillar li { display: flex; gap: 10px; } .pillar li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 2px; background: var(--violet); margin-top: 9px; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 28px; border-top: 1px solid var(--line); }
+  .stats div { padding: 20px 20px 0 0; display: grid; gap: 4px; }
+  .stats b { font: 700 34px/1 var(--f-display); letter-spacing: -.02em; }
+  .stats span { color: var(--muted); font-size: 14px; }
+
+  .mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .mod { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; display: grid; gap: 10px; align-content: start; }
+  .mod .chip { justify-self: start; font: 600 12px/1 var(--f-body); padding: 6px 9px; border-radius: 999px; background: var(--sunk); color: var(--muted); }
+  .mod.live .chip { background: var(--ok-tint); color: var(--ok); }
+  .mod.live { border-color: color-mix(in srgb, var(--violet) 40%, var(--line)); }
+  .mod h3 { font-size: 20px; } .mod .ar { color: var(--muted); font-size: 15px; text-align: start; margin-top: -4px; }
+  .mod p { color: var(--ink-2); font-size: 15px; }
+  .mod .count { font-weight: 600; color: var(--violet-ink); font-size: 14px; }
+
+  .how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+  .how li { list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; display: grid; gap: 8px; counter-increment: s; }
+  .how li::before { content: counter(s); font: 700 15px/1 var(--f-display); color: var(--on-violet); background: var(--violet); width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; }
+  .how h3 { font-size: 19px; } .how p { color: var(--ink-2); font-size: 15px; } .how .ar { color: var(--muted); font-size: 15px; text-align: start; }
+  .how { padding: 0; margin: 0; }
+
+  .ctaband { background: var(--frame); color: #fff; border-radius: 20px; padding: 44px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; }
+  .ctaband h2 { font-size: clamp(26px, 3vw, 36px); color: #fff; } .ctaband .ar { color: #B9B9C6; font-size: 17px; margin-top: 8px; text-align: start; }
+  .ctaband .btn.ghost { background: transparent; color: #fff; border-color: #3A3A46; }
+
+  footer { padding-block: 40px 56px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 28px; }
+  footer h4 { margin: 0 0 10px; color: var(--ink); font: 600 14px var(--f-body); }
+  footer a { color: var(--ink-2); text-decoration: none; } footer a:hover { color: var(--violet-ink); }
+  footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .sel { user-select: all; }
+
+  @media (max-width: 980px) { .hero .wrap { grid-template-columns: 1fr; gap: 32px; } .mods { grid-template-columns: 1fr 1fr; } .top nav { display: none; } }
+  @media (max-width: 680px) { .about, .how, .mods { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } footer .wrap { grid-template-columns: 1fr; } .ctaband { padding: 28px; } .top .acts .ghost { display: none; } .kb-tag { display: none; } section.band { padding-block: 52px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a href="/" aria-label="Fleetroot Knowledge Base home"><img class="logo-img on-light" src="/img/fleetroot-logo.png" alt="Fleetroot"><img class="logo-img on-dark" src="/img/fleetroot-logo-light.png" alt="Fleetroot"></a>
+  <span class="kb-tag">Knowledge Base</span>
+  <nav><a href="#guides">Guides</a><a href="#about">About Fleetroot</a><a href="#modules">Modules</a><a href="#how">How it works</a></nav>
+  <div class="acts"><a class="btn ghost sm" href="/help">Sign in</a><a class="btn sm" href="/help?signup=1">Create account</a></div>
+</div></header>
+
+<main>
+<section class="hero" id="guides"><div class="wrap">
+  <div>
+    <span class="eyebrow">Fleetroot Knowledge Base</span>
+    <h1>Learn Fleetroot by watching it work.</h1>
+    <p class="h1ar ar">تعلّم Fleetroot بمشاهدته وهو يعمل.</p>
+    <p class="lead">Short animated guides show you exactly where to click on the real Fleetroot screens. Every step is written in English and Arabic, so your whole team can follow along.</p>
+    <div class="cta"><a class="btn" href="/help?signup=1">Create a free account</a><a class="btn ghost" href="/help">Sign in</a></div>
+    <p class="fine"><span>Free for Fleetroot customers</span><span>English and Arabic</span><span>Works on phone and desktop</span></p>
+  </div>
+  <div>
+    <p class="demo-label"><span>Try a guide: <b>Run a report</b></span><span class="ar">جرّب دليلًا: تشغيل تقرير</span></p>
+    <div id="heroDemo"></div>
+  </div>
+</div></section>
+
+<section class="band" id="about"><div class="wrap">
+  <div class="sechead">
+    <span class="eyebrow">About Fleetroot</span>
+    <h2>Every vehicle. Every delivery. One platform.</h2>
+    <p>Fleetroot connects your vehicles, drivers, tracking devices and transport operations. You see the whole fleet live, plan better routes, dispatch faster and keep digital proof of every delivery, all in one place.</p>
+    <p class="ar">يربط Fleetroot مركباتك وسائقيك وأجهزة التتبع وعمليات النقل في منصة واحدة: رؤية مباشرة للأسطول، ومسارات أفضل، وإسناد أسرع، وإثبات رقمي لكل عملية تسليم.</p>
+  </div>
+  <div class="about">
+    <div class="pillar"><span class="eyebrow">Fleet Intelligence</span><h3>Know where everything is, right now</h3>
+      <ul><li>Live GPS tracking with geofence and idling alerts</li><li>Driver behaviour, fuel and temperature monitoring</li><li>Service, renewal and maintenance reminders</li><li>Reports and analytics for the whole fleet</li></ul></div>
+    <div class="pillar"><span class="eyebrow">Logistics Orchestration</span><h3>Plan, dispatch and prove every delivery</h3>
+      <ul><li>Route planning with time windows and live traffic</li><li>Automatic dispatch to drivers and a driver mobile app</li><li>Proof of delivery by signature, photo or OTP</li><li>Orders from your ERP, online store or spreadsheet</li></ul></div>
+  </div>
+  <div class="stats"><div><b>20M+</b><span>orders processed</span></div><div><b>300+</b><span>businesses onboarded</span></div><div><b>GCC</b><span>based in Dubai, UAE</span></div></div>
+</div></section>
+
+<section class="band" id="modules"><div class="wrap">
+  <div class="sechead"><span class="eyebrow">What's inside</span><h2>Guides for every Fleetroot module</h2>
+    <p>Fleet Management is ready now. The other modules are being added one by one.</p></div>
+  <div class="mods" id="mods"></div>
+</div></section>
+
+<section class="band" id="how"><div class="wrap">
+  <div class="sechead"><span class="eyebrow">How it works</span><h2>Three steps to your first guide</h2></div>
+  <ol class="how">
+    <li><h3>Create your account</h3><p>Sign up with your name and work email and choose a password.</p><p class="ar">أنشئ حسابك بالاسم والبريد الإلكتروني وكلمة مرور.</p></li>
+    <li><h3>Confirm your email</h3><p>We send you a link. Open it to confirm your address and switch on your account.</p><p class="ar">نرسل لك رابطًا، افتحه لتأكيد بريدك وتفعيل حسابك.</p></li>
+    <li><h3>Watch, then do it yourself</h3><p>Pick a guide, press <b>Watch how</b>, then repeat the steps in Fleetroot.</p><p class="ar">اختر دليلًا واضغط «شاهد الطريقة» ثم كرّر الخطوات في Fleetroot.</p></li>
+  </ol>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <div class="ctaband"><div><h2>Ready to learn Fleetroot?</h2><p class="ar">هل أنت مستعد لتعلّم Fleetroot؟</p></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="/help?signup=1">Create a free account</a><a class="btn ghost" href="/help">Sign in</a></div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div><img class="logo-img on-light" src="/img/fleetroot-logo.png" alt="Fleetroot"><img class="logo-img on-dark" src="/img/fleetroot-logo-light.png" alt="Fleetroot">
+    <p style="margin-top:12px;max-width:34em">Fleetroot FZCO · Office #9WC 523, Dubai Airport Free Zone (DAFZA), Dubai, UAE</p></div>
+  <div><h4>Support</h4><ul><li><span class="sel">support@fleetroot.com</span></li><li><span class="sel">+971 52 52 34 328</span></li><li><span class="sel">+971 55 200 5851</span></li></ul></div>
+  <div><h4>Fleetroot</h4><ul><li><a href="https://fleetroot.com/" target="_blank" rel="noopener">fleetroot.com</a></li><li><a href="https://track.fleetroot.com/" target="_blank" rel="noopener">Tracking portal</a></li><li><a href="/help">Knowledge Base sign in</a></li></ul></div>
+</div></footer>
+
+<script src="/js/kb-content.js"></script>
+<script src="/js/player.js"></script>
+<script>
+(function () {
+  const t = KB.topics.find((x) => x.id === 'run-report');
+  FRPlayer(document.getElementById('heroDemo'), t.demo);
+  const render = (on) => {
+    document.getElementById('mods').innerHTML = KB.modules.map((m) => {
+      const live = !!on[m.id];
+      const n = KB.topics.filter((x) => x.module === m.id).length;
+      return `<div class="mod ${live ? 'live' : ''}"><span class="chip">${live ? 'Available' : 'Coming soon'}</span><h3>${m.name.en}</h3><p class="ar">${m.name.ar}</p><p>${m.blurb.en}</p>${live && n ? `<span class="count">${n} guides</span>` : ''}</div>`;
+    }).join('');
+  };
+  render({ fleet: true });
+  fetch('/api/config').then((r) => r.json()).then((c) => c.modules && render(c.modules)).catch(() => {});
+})();
+</script>
+</body>
+</html>
